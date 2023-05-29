@@ -3,6 +3,11 @@ module echorestapi
 go 1.20
 
 require (
+	github.com/antchfx/htmlquery v1.3.0 // indirect
+	github.com/antchfx/xpath v1.2.3 // indirect
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
+	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
+	github.com/labstack/echo v3.3.10+incompatible // indirect
 	github.com/labstack/echo/v4 v4.10.2 // indirect
 	github.com/labstack/gommon v0.4.0 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
