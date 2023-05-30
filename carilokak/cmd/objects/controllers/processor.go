@@ -34,3 +34,20 @@ func CreateObject(c echo.Context) error {
 
 	return c.JSON(http.StatusCreated, message)
 }
+
+func DeleteObject(c echo.Context) error {
+	objectId := c.Param("id")
+	id := models.DeleteObject(objectId)
+	message := struct {
+		Success bool   `json:"success"`
+		Message string `json:"message"`
+	}{
+		Success: true,
+		Message: id + " has been deleted successfully",
+	}
+	return c.JSON(http.StatusOK, message)
+}
+
+func GetData(c echo.Context) error {
+	return c.JSON(http.StatusOK, map[string]string{"message": "success"})
+}

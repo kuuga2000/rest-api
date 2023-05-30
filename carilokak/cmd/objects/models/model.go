@@ -13,3 +13,11 @@ func CreateObject(object Objects) (Objects, error) {
 	}
 	return object, nil
 }
+
+func DeleteObject(objectId string) string {
+	db := configs.GetDB()
+	sqlStatement := `DELETE FROM objects WHERE object_id = $1`
+	db.Query(sqlStatement, objectId)
+
+	return objectId
+}
