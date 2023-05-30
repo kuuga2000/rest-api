@@ -1,0 +1,88 @@
+<pre><code class="lang-bash">.
+    ├── go.mod
+    |   <span class="hljs-comment"># file go.mod dipergunakan oleh go module (jika go mod diaktifkan).</span>
+    |
+    ├── Makefile
+    |   <span class="hljs-comment"># file Makefile dipergunakan oleh command `make`.</span>
+    |
+    ├── assets/
+    |   <span class="hljs-comment"># folder assets berisi static assets, seperti gambar, logo, dll.</span>
+    |
+    ├── build/
+    |   <span class="hljs-comment"># folder build isinya adalah files untuk keperluan build dan</span>
+    |   <span class="hljs-comment"># juga CI (continous integration). Contoh file yang dimaksud adalah</span>
+    |   <span class="hljs-comment"># seperti Dockerfile, file CI tool (.travis-ci.yml, .gitlab-ci.yml)</span>
+    |   <span class="hljs-comment"># dan file untuk keperluan build ke bentuk lain seperti file deb, rpm, pkg.</span>
+    |   |
+    │   ├── ci/
+    |   |   <span class="hljs-comment"># tempatkan file untuk CI dalam folder ini</span>
+    |   |
+    │   └── package/
+    |       <span class="hljs-comment"># tempatkan file untuk keperluan build dalam folder ini</span>
+    |
+    ├── cmd/
+    |   <span class="hljs-comment"># folder cmd isinya adalah source code utama aplikasi.</span>
+    |   <span class="hljs-comment">#</span>
+    |   <span class="hljs-comment"># jika aplikasi merupakan sebuah app monolith, maka folder ini isinya</span>
+    |   <span class="hljs-comment"># adalah langsung source code utama.</span>
+    |   <span class="hljs-comment"># salah satu contoh, folder ini isinya adalah file-file bisnis logic utama,</span>
+    |   <span class="hljs-comment"># seperti services dan repositories.</span>
+    |   <span class="hljs-comment">#</span>
+    |   <span class="hljs-comment"># jika arsitektur microservices diadopsi, dengan layout monorepo,</span>
+    |   <span class="hljs-comment"># maka isi dari cmd adalah source code yang dibagi per service.</span>
+    |   |
+    │   ├── your_app_1/
+    │   ├── your_app_2/
+    │   ├── your_app_3/
+    │   └── ...
+    |
+    ├── configs/
+    |   <span class="hljs-comment"># folder configs isinya adalah file konfigurasi.</span>
+    |
+    ├── deployments/
+    |   <span class="hljs-comment"># folder deployments isinya adalah file yang berhubungan dengan orchestration,</span>
+    |   <span class="hljs-comment"># deployments, dan juga CD. Seperti docker-compose.yml, k8s file, dll.</span>
+    |
+    ├── docs/
+    |   <span class="hljs-comment"># folder docs isinya adalah file design dan dokumentasi.</span>
+    |
+    ├── examples/
+    |   <span class="hljs-comment"># folder examples isinya adalah file example.</span>
+    |
+    ├── init/
+    |   <span class="hljs-comment"># folder init isinya adalah file-file system init (systemd, upstart, sysv)</span>
+    |   <span class="hljs-comment"># dan file konfigurasi process manager atau supervisor (runit, supervisord).</span>
+    |
+    ├── internal/
+    |   <span class="hljs-comment"># folder internal isinya adalah file private aplikasi dan library.</span>
+    |   <span class="hljs-comment"># sebetulnya folder ini kegunaannya sama seperti `pkg`, perbedaannya adalah package</span>
+    |   <span class="hljs-comment"># dalam folder internal ini hanya bisa di-import dalam project ini, tidak bisa di-import</span>
+    |   <span class="hljs-comment"># ke project lain.</span>
+    |
+    ├── pkg/
+    |   <span class="hljs-comment"># folder pkg isinya adalah file utility yg di-reuse dalam project yang sama,</span>
+    |   <span class="hljs-comment"># atau bisa juga di re-use oleh project lain.</span>
+    |   |
+    │   ├── your_public_lib_1/
+    │   ├── your_public_lib_2/
+    │   ├── your_public_lib_3/
+    │   └── ...
+    |
+    ├── <span class="hljs-built_in">test</span>/
+    |   <span class="hljs-comment"># folder test isinya adalah file testing. untuk struktur file-nya sendiri bebas,</span>
+    |   <span class="hljs-comment"># mau disusun seperti apa.</span>
+    |   <span class="hljs-comment">#</span>
+    |   <span class="hljs-comment"># khusus untuk unit test, baiknya tidak ditempatkan di sini,</span>
+    |   <span class="hljs-comment"># tapi ditempatkan di dalam package yang sama dengan file yang akan di-unit-test. </span>
+    |
+    ├── vendor/
+    |   <span class="hljs-comment"># berisi clone dari 3rd party dependencies. Folder ini digunakan jika konfigurasi vendor diaktifkan</span>
+    |
+    ├── web/
+    |   <span class="hljs-comment"># berisi aplikasi web. untuk microservices saya sarankan untuk menempatkan aplikasi web dalam folder `cmd/app`</span>
+    |
+    └── ...
+    </code></pre>
+
+    https://github.com/golang-standards/project-layout
+    https://github.com/golang-standards/project-layout
