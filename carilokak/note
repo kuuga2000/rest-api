@@ -1,0 +1,5 @@
+go mod init carilokak
+go mod init tidy
+go mod vendor
+go get github.com/labstack/echo/v4
+go run server.go
