@@ -2,20 +2,16 @@ package controllers
 
 import (
 	"carilokak/cmd/objects/models"
+	"carilokak/configs"
+	"fmt"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
 )
 
-type Objects struct {
-	ObjectId     int    `json:"id"`
-	ObjectName   string `json:"name"`
-	ObjectGender int    `json:"gender"`
-}
-
 // e.POST("/object/create", objects.CreateObject)
 func CreateObject(c echo.Context) error {
-	newobject := models.Objects{}
+	newobject := models.Object{}
 	c.Bind(&newobject)
 	newObject, err := models.CreateObject(newobject)
 	//newObject := new(Objects)
@@ -25,13 +21,51 @@ func CreateObject(c echo.Context) error {
 	}
 
 	message := struct {
-		Success bool           `json:"success"`
-		Data    models.Objects `json:"data"`
+		Success bool          `json:"success"`
+		Data    models.Object `json:"data"`
 	}{
 		Success: true,
 		Data:    newObject,
 	}
 
+	return c.JSON(http.StatusCreated, message)
+}
+
+func GetObjects(c echo.Context) error {
+	db := configs.GetDB()
+	sqlStatement := "SELECT object_id, object_name, gender_id FROM objects ORDER BY object_id"
+	rows, err := db.Query(sqlStatement)
+	if err != nil {
+		fmt.Println(err)
+		return c.JSON(http.StatusCreated, err.Error())
+	}
+	defer rows.Close()
+	result := models.Objects{}
+	for rows.Next() {
+		object := models.Object{}
+		err2 := rows.Scan(&object.ObjectId, &object.ObjectName, &object.ObjectGender)
+		if err2 != nil {
+			return c.JSON(http.StatusCreated, err2.Error())
+		}
+		result.Objectss = append(result.Objects, object)
+	}
+	return c.JSON(http.StatusCreated, result)
+}
+
+func UpdateObject(c echo.Context) error {
+	editObject := models.Object{}
+	c.Bind(&editObject)
+	editObject, err := models.UpdateObject(editObject)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, err.Error())
+	}
+	message := struct {
+		Success bool          `json:"success"`
+		Data    models.Object `json:"data"`
+	}{
+		Success: true,
+		Data:    editObject,
+	}
 	return c.JSON(http.StatusCreated, message)
 }
 
