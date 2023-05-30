@@ -61,9 +61,11 @@ func UpdateObject(c echo.Context) error {
 	}
 	message := struct {
 		Success bool          `json:"success"`
+		Message string        `json:"message"`
 		Data    models.Object `json:"data"`
 	}{
 		Success: true,
+		Message: fmt.Sprintf("#%d has been updated successfully.", editObject.ObjectId),
 		Data:    editObject,
 	}
 	return c.JSON(http.StatusCreated, message)
@@ -77,7 +79,7 @@ func DeleteObject(c echo.Context) error {
 		Message string `json:"message"`
 	}{
 		Success: true,
-		Message: id + " has been deleted successfully",
+		Message: id + " has been deleted successfully.",
 	}
 	return c.JSON(http.StatusOK, message)
 }
