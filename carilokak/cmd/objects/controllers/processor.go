@@ -47,7 +47,7 @@ func GetObjects(c echo.Context) error {
 		if err2 != nil {
 			return c.JSON(http.StatusCreated, err2.Error())
 		}
-		result.Objectss = append(result.Objects, object)
+		result.Objects = append(result.Objects, object)
 	}
 	return c.JSON(http.StatusCreated, result)
 }
