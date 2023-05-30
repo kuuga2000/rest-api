@@ -1,8 +1,8 @@
 package geroy
 
 import (
-	"net/http"
-	"github.com/labstack/echo/v4"
+    "net/http"
+    "github.com/labstack/echo/v4"
 )
 
 type Rider struct {
@@ -10,11 +10,12 @@ type Rider struct {
     Skill string `json:"skill" form:"skill" query:"skill"`
 }
 
-func createRider(c echo.Context) error {
+func CreateRider(c echo.Context) error {
 	rider := new(Rider)
     if err := c.Bind(rider); err != nil {
         return err
     }
 
-    return c.String(http.StatusOK, "Asd")
+    return c.JSON(http.StatusOK, test())
 }
+

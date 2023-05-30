@@ -2,7 +2,7 @@ package controllers
 import (
     "bytes"
     "io/ioutil"
-
+    "net/http"
     "github.com/labstack/echo/v4"
     "github.com/antchfx/htmlquery"
 )
@@ -11,36 +11,35 @@ type company struct {
     ticker string `json:"ticker" form:"ticker" query:"ticker"`
 }
 // GrabPrice - handler method for binding JSON body and scraping for stock price
-func GrabPrice(c echo.Context)(err error) {
-    // Read the Body content 
-    var bodyBytes[] byte
-    if c.Request().Body != nil {
+func GrabPrice(c echo.Context)(err error){
+    var bodyBytes []byte
 
-            bodyBytes, _ = ioutil.ReadAll(c.Request().Body)
-        }
-        // Restore the io.ReadCloser to its original state 
+	if c.Request().Body != nil {
+		bodyBytes,_= ioutil.ReadAll(c.Request().Body)
+	}
+    // Restore the io.ReadCloser to its original state
     c.Request().Body = ioutil.NopCloser(bytes.NewBuffer(bodyBytes))
-    u: = new(company)
-    er: = c.Bind(u) // bind the structure with the context body
-        // on no panic! 
+    u:= new(company)
+    er:= c.Bind(u) // bind the structure with the context body
+    // on no panic!
     if er != nil {
-            panic(er)
-        }
-        // company ticker
-    ticker: = u.ticker
-        // yahoo finance base URL 
-    baseURL: = "https://finance.yahoo.com/quote/"
-        // price XPath
-    pricePath = "//*[@id=\"quote-header-info\"]"
-        // load HTML document by binding base url and passed in ticker
-    doc, err: = htmlquery.LoadURL(baseURL + ticker)
-        // uh oh :( freak out!!
+		panic(er)
+	}
+    // company ticker
+    ticker:= u.ticker
+    // yahoo finance base URL
+    baseURL := "https://finance.yahoo.com/quote/"
+    // price XPath
+    pricePath:= "//*[@id=\"quote-header-info\"]"
+    // load HTML document by binding base url and passed in ticker
+    doc, err:= htmlquery.LoadURL(baseURL + ticker)
+    // uh oh :( freak out!!
     if err != nil {
-            panic(err)
-        }
-        // HTML Node 
-    context: = htmlquery.FindOne(doc, pricePath)
-        // from the Node get inner text
-    price: = string(htmlquery.InnerText(context))
+		panic(err)
+	}
+    // HTML Node
+    context:= htmlquery.FindOne(doc, pricePath)
+    // from the Node get inner text
+    price:= string(htmlquery.InnerText(context))
     return c.JSON(http.StatusOK, price)
 }
