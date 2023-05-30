@@ -3,3 +3,21 @@ go mod init tidy
 go mod vendor
 go get github.com/labstack/echo/v4
 go run server.go
+
+
+object
+  person
+  stuff
+  car
+  motorcyle
+  clean
+
+market
+
+order
+
+order_complete
+
+order_cancel
+
+order_in_process
