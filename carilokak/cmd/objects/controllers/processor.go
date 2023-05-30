@@ -24,5 +24,13 @@ func CreateObject(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusCreated, newObject)
+	message := struct {
+		Success bool           `json:"success"`
+		Data    models.Objects `json:"data"`
+	}{
+		Success: true,
+		Data:    newObject,
+	}
+
+	return c.JSON(http.StatusCreated, message)
 }
